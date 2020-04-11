@@ -23,7 +23,9 @@ resource "aws_db_parameter_group" "default_params" {
 }
 
 resource "aws_db_instance" "DB01-PROD-TF" {
-  identifier           = "database-prod-tf"
+  identifier = "database-prod-tf"
+  #used during testing of python script...
+  #publicly_accessible = "true"
   allocated_storage    = 20
   storage_type         = "gp2"
   engine               = "mysql"
