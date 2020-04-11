@@ -105,7 +105,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         ProjectName          = "aws-task"
-        EnvironmentVariables = "[{\"name\":\"REPOSTIORY_URI\",\"value\":\"${aws_ecr_repository.ecr-repo.repository_url}\",\"type\":\"PLAINTEXT\"}]"
+        EnvironmentVariables = "[{\"name\":\"IMAGE_REPO_NAME\",\"value\":\"${aws_ecr_repository.ecr-repo.name}\",\"type\":\"PLAINTEXT\"}]"
       }
     }
   }
