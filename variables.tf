@@ -14,3 +14,5 @@ variable "aws_vpc_gw_id" {
 variable "aws_region" {
   default = "eu-central-1"
 }
+
+variable "gh_token" {}

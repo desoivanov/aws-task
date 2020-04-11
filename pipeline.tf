@@ -83,9 +83,10 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        Owner  = "desoivanov"
-        Repo   = "aws-task"
-        Branch = "master"
+        Owner      = "desoivanov"
+        Repo       = "aws-task"
+        Branch     = "master"
+        OAuthToken = var.gh_token
       }
     }
   }
@@ -104,7 +105,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         ProjectName          = "aws-task"
-        EnvironmentVariables = "[{\"name\":\"REPOSTIORY_URI\",\"value\":\"${aws_ecr_repository.ecr-repo.repository_url}/aws-task\",\"type\":\"PLAINTEXT\"}]"
+        EnvironmentVariables = "[{\"name\":\"REPOSTIORY_URI\",\"value\":\"${aws_ecr_repository.ecr-repo.repository_url}\",\"type\":\"PLAINTEXT\"}]"
       }
     }
   }
@@ -116,13 +117,13 @@ resource "aws_codepipeline" "codepipeline" {
       name            = "Deploy"
       category        = "Deploy"
       owner           = "AWS"
-      provider        = "Amazon S3"
+      provider        = "S3"
       input_artifacts = ["build_output"]
       version         = "1"
 
       configuration = {
-        S3Bucket    = aws_s3_bucket.web-bucket.bucket
-        S3ObjectKey = "index.html"
+        BucketName = aws_s3_bucket.web-bucket.bucket
+        Extract    = "true"
       }
     }
   }
