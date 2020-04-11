@@ -23,6 +23,8 @@ data "aws_subnet" "default_subnets" {
   for_each = data.aws_subnet_ids.default_subnets_ids.ids
   id       = each.value
 }
+
+data "aws_caller_identity" "current" {}
 ### Security groups
 
 resource "aws_security_group" "sg-database-servers" {
